@@ -1,0 +1,1 @@
+# Job to normalize the data and create its tables in the data warehouse 
