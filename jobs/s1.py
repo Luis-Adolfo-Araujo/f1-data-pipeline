@@ -1,4 +1,3 @@
-# ETL job to get the f1 data and store in local stage staging/ds.csv
 import pandas as pd
 import requests
 import csv
@@ -6,12 +5,19 @@ import csv
 BASE_URL = "https://api.openf1.org/v1/"
 methods = ['car_data', 'drivers', 'intervals', 'laps', 'location', 'meetings', 'pit', 'position', 'race_control', 'sessions', 'stints', 'team_radio', 'weather']
 
-for i in range(len(methods)):
-    uri = methods[i]
+for method in methods:
+    uri = method
     req = requests.get(BASE_URL+uri)
     print(req.url)
     print(req.status_code)
-    
-    with open(f'../staging/{methods[i]}.csv', 'w') as csvfile:
-        csvwiter = csv.writer(csvfile)
-        csvwiter.writerow(req)
+
+    if req.status_code == 200:
+        data = req.json()
+        file_path = f'../staging/{method}.csv'
+        with open(file_path, 'w', newline='', encoding='utf-8') as csvfile:
+            csv_writer = csv.DictWriter(csvfile, fieldnames=data[0].keys())
+            csv_writer.writeheader()
+            csv_writer.writerows(data)
+        print(f'Dados salvos em {file_path}')
+    else:
+        print(f'Erro ao obter dados da API para {method}: {req.status_code}')
