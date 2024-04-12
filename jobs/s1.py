@@ -17,6 +17,5 @@ for method in methods:
             csv_writer = csv.DictWriter(csvfile, fieldnames=data[0].keys())
             csv_writer.writeheader()
             csv_writer.writerows(data)
-        print(f'Dados salvos em {file_path}')
     else:
-        print(f'Erro ao obter dados da API para {method}: {req.status_code}')
+        print(f'Err {req.status_code}: {method}')
