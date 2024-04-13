@@ -6,7 +6,7 @@ services:
       - POSTGRES_PASSWORD=root
       - PORTGRES_DB=f1_data
     volumes:
-    - "/home/luis/Documents/CesarSchool/periodo5/CienciaDeDados/f1-data-pipeline/f1-pg-data:/var/lib/postgresql/data:rw"
+    - "/home/luis/Documents/CesarSchool/periodo5/f1-data-pipeline/f1-pg-data:/var/lib/postgresql/data:rw"
     ports:
       - "5437:5347"
   pgadmin:
@@ -15,6 +15,6 @@ services:
       - PGADMIN_DEFAULT_EMAIL=admin@admin.com
       - PGADMIN_DEFAULT_PASSWORD=root
     volumes:
-      - /home/luis/Documents/CesarSchool/periodo5/CienciaDeDados/f1-data-pipeline/f1-pgadmin-data:/var/lib/pgadmin
+      - /home/luis/Documents/CesarSchool/periodo5/f1-data-pipeline/f1-pgadmin-data:/var/lib/pgadmin
     ports:
       - "8080:80"
