@@ -1,8 +1,5 @@
 # Job ETL to insert data in the postgres 
-import psycopg2
+import pandas as pd
 
-try:
-    conn = psycopg2.connect(host="localhost", )
-except:
-    print(e)
-    exit(0)
+f1_df = pd.read_csv('../staging/drivers.csv')
+print(f1_df.head())
