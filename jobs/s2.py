@@ -1,9 +1,15 @@
 # Job ETL to insert data in the postgres 
+import os
+import sys
+sys.path.insert(0, '/home/luis/Documents/CesarSchool/periodo5/f1-data-pipeline')
+
 import pandas as pd
-from sqlalchemy import create_engine
 from config import *
+from sqlalchemy import create_engine
 
 engine = create_engine(f"postgresql://{PG_USER}:{PG_PASS}@{PG_HOST}:{PG_PORT}/{PG_DB}")
 conn = engine.connect()
 
-print(conn)
+for file in os.listdir(STAGING):
+    file_path = os.path.join(STAGING, file)
+    df = pd.read_csv(file_path, iterator=True)
