@@ -11,7 +11,11 @@ for method in methods:
     print(req.status_code)
 
     if req.status_code == 200:
+        #something has changed in the `meetings` json response and is causing an error 
         data = req.json()
+        if method == 'meetings':
+            for item in data:
+                item.pop('meeting_code', None)
         file_path = f'../staging/{method}.csv'
         with open(file_path, 'w', newline='', encoding='utf-8') as csvfile:
             csv_writer = csv.DictWriter(csvfile, fieldnames=data[0].keys())
