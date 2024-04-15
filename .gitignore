@@ -1,3 +1,4 @@
 config.py
 f1-pgadmin-data/
 f1-pg-data/
+docker-compose.yml
