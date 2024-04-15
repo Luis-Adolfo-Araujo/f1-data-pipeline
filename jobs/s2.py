@@ -12,4 +12,9 @@ conn = engine.connect()
 
 for file in os.listdir(STAGING):
     file_path = os.path.join(STAGING, file)
-    df = pd.read_csv(file_path, iterator=True)
+    if file.endswith('.csv'):
+        df = pd.read_csv(file_path)
+        table_name = file.replace('.csv', '')
+        df.to_sql(table_name, engine, if_exists='append', index=False)
+
+engine.dispose()
