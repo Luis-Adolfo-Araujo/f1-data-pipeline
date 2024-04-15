@@ -8,7 +8,7 @@ services:
     volumes:
     - "/home/luis/Documents/CesarSchool/periodo5/f1-data-pipeline/f1-pg-data:/var/lib/postgresql/data:rw"
     ports:
-      - "5437:5347"
+      - "5437:5432"
   pgadmin:
     image: dpage/pgadmin4
     environment:
