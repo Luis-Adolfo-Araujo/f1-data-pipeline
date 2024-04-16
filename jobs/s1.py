@@ -1,31 +1,11 @@
+import io
 import os
-import requests
-import csv
+import zipfile as zp
+from kaggle.api.kaggle_api_extended import KaggleApi
 
-BASE_URL = "https://api.openf1.org/v1/"
-methods = ['car_data', 'drivers', 'intervals', 'laps', 'location', 'meetings', 'pit', 'position', 'race_control', 'sessions', 'stints', 'team_radio', 'weather']
-
-staging_dir = '../staging/'
+api = KaggleApi()
+dataset = 'rohanrao/formula-1-world-championship-1950-2020'
+staging_dir = "/home/luis/Documents/CesarSchool/periodo5/f1-data-pipeline/staging"
 os.makedirs(staging_dir, exist_ok=True)
+api.dataset_download_files(dataset, path=staging_dir, unzip=True)
 
-for method in methods:
-    uri = method
-    req = requests.get(BASE_URL + uri)
-    print(req.url)
-    print(req.status_code)
-
-    if req.status_code == 200:
-        data = req.json()
-
-        if method == 'meetings':
-            # Handle changes in the 'meetings' data structure
-            for item in data:
-                item.pop('meeting_code', None)
-
-        file_path = f'{staging_dir}{method}.csv'
-        with open(file_path, 'w', newline='', encoding='utf-8') as csvfile:
-            csv_writer = csv.DictWriter(csvfile, fieldnames=data[0].keys())
-            csv_writer.writeheader()
-            csv_writer.writerows(data)
-    else:
-        print(f'Err {req.status_code}: {method}')
