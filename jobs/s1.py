@@ -8,4 +8,3 @@ dataset = 'rohanrao/formula-1-world-championship-1950-2020'
 staging_dir = "/home/luis/Documents/CesarSchool/periodo5/f1-data-pipeline/staging"
 os.makedirs(staging_dir, exist_ok=True)
 api.dataset_download_files(dataset, path=staging_dir, unzip=True)
-
