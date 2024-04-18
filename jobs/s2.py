@@ -17,4 +17,5 @@ for file in os.listdir(STAGING):
         table_name = file.replace('.csv', '')
         df.to_sql(table_name, engine, if_exists='append', index=False)
 
+print("Data was properly inserted in the database.")
 engine.dispose()
